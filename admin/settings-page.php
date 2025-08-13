@@ -34,7 +34,8 @@ if (isset($_POST['sscf_save_fields']) && wp_verify_nonce($_POST['sscf_fields_non
 
 // Handle form submission
 if (isset($_POST['sscf_save_settings']) && wp_verify_nonce($_POST['sscf_settings_nonce'], 'sscf_save_settings')) {
-    $options = get_option('sscf_options', array());
+    global $spamshield_contact_form;
+    $options = $spamshield_contact_form ? $spamshield_contact_form->get_options() : get_option('sscf_options', array());
     $options['honeypot_enabled'] = !empty($_POST['honeypot_enabled']);
     $options['min_time_seconds'] = intval($_POST['min_time_seconds']);
     $options['email_recipient'] = sanitize_email($_POST['email_recipient']);
@@ -62,10 +63,11 @@ if (isset($_POST['sscf_send_test']) && wp_verify_nonce($_POST['sscf_test_nonce']
 }
 
 // Get current options
-$options = get_option('sscf_options', array());
+global $spamshield_contact_form;
+$options = $spamshield_contact_form ? $spamshield_contact_form->get_options() : get_option('sscf_options', array());
 $spam_protection = new SSCF_Spam_Protection();
 $spam_stats = $spam_protection->get_spam_stats();
-$form_fields = get_option('sscf_form_fields', array());
+$form_fields = $spamshield_contact_form ? $spamshield_contact_form->get_form_fields() : get_option('sscf_form_fields', array());
 
 // Default values
 $honeypot_enabled = !empty($options['honeypot_enabled']);
@@ -99,7 +101,6 @@ $success_message = !empty($options['success_message']) ? $options['success_messa
             
             <div id="sscf-fields-container">
                 <?php 
-                usort($form_fields, function($a, $b) { return $a['order'] - $b['order']; });
                 foreach ($form_fields as $index => $field): 
                 ?>
                 <div class="sscf-field-row" data-index="<?php echo $index; ?>">

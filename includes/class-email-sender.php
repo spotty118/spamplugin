@@ -70,7 +70,8 @@ class SSCF_Email_Sender {
         
         // Try to find a subject field dynamically
         $form_subject = '';
-        $form_fields = get_option('sscf_form_fields', array());
+        global $spamshield_contact_form;
+        $form_fields = $spamshield_contact_form ? $spamshield_contact_form->get_form_fields() : get_option('sscf_form_fields', array());
         
         foreach ($form_fields as $field) {
             if (in_array($field['type'], array('text', 'textarea')) && 
@@ -105,12 +106,8 @@ class SSCF_Email_Sender {
     private function prepare_email_message($data) {
         $site_name = get_bloginfo('name');
         $site_url = get_site_url();
-        $form_fields = get_option('sscf_form_fields', array());
-        
-        // Sort fields by order
-        usort($form_fields, function($a, $b) {
-            return $a['order'] - $b['order'];
-        });
+        global $spamshield_contact_form;
+        $form_fields = $spamshield_contact_form ? $spamshield_contact_form->get_form_fields() : get_option('sscf_form_fields', array());
         
         // Get current date/time
         $date_time = current_time('F j, Y \a\t g:i A');
@@ -191,7 +188,8 @@ class SSCF_Email_Sender {
         // Find reply-to email and name dynamically
         $reply_to_email = '';
         $reply_to_name = '';
-        $form_fields = get_option('sscf_form_fields', array());
+        global $spamshield_contact_form;
+        $form_fields = $spamshield_contact_form ? $spamshield_contact_form->get_form_fields() : get_option('sscf_form_fields', array());
         
         foreach ($form_fields as $field) {
             $field_name = 'sscf_' . $field['id'];
