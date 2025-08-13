@@ -83,7 +83,8 @@ class SSCF_Form_Handler {
         );
         
         // Get form fields configuration
-        $form_fields = get_option('sscf_form_fields', array());
+        global $spamshield_contact_form;
+        $form_fields = $spamshield_contact_form ? $spamshield_contact_form->get_form_fields() : get_option('sscf_form_fields', array());
         
         // Sanitize each configured form field
         foreach ($form_fields as $field) {
@@ -112,7 +113,8 @@ class SSCF_Form_Handler {
      */
     private function validate_form_data($data) {
         $errors = array();
-        $form_fields = get_option('sscf_form_fields', array());
+        global $spamshield_contact_form;
+        $form_fields = $spamshield_contact_form ? $spamshield_contact_form->get_form_fields() : get_option('sscf_form_fields', array());
         
         // Validate each configured form field
         foreach ($form_fields as $field) {
@@ -197,7 +199,8 @@ class SSCF_Form_Handler {
         
         // Collect all form field values dynamically
         $content_values = array();
-        $form_fields = get_option('sscf_form_fields', array());
+        global $spamshield_contact_form;
+        $form_fields = $spamshield_contact_form ? $spamshield_contact_form->get_form_fields() : get_option('sscf_form_fields', array());
         
         foreach ($form_fields as $field) {
             $field_name = 'sscf_' . $field['id'];
@@ -296,7 +299,8 @@ class SSCF_Form_Handler {
         $table_name = $wpdb->prefix . 'sscf_entries';
         
         // Get form fields configuration for hash
-        $form_fields = get_option('sscf_form_fields', array());
+        global $spamshield_contact_form;
+        $form_fields = $spamshield_contact_form ? $spamshield_contact_form->get_form_fields() : get_option('sscf_form_fields', array());
         $form_fields_hash = md5(json_encode($form_fields));
         
         // Prepare entry data (exclude honeypot and timestamp)
@@ -344,7 +348,8 @@ class SSCF_Form_Handler {
      * @return array
      */
     private function augment_with_canonical_fields(array $data) {
-        $form_fields = get_option('sscf_form_fields', array());
+        global $spamshield_contact_form;
+        $form_fields = $spamshield_contact_form ? $spamshield_contact_form->get_form_fields() : get_option('sscf_form_fields', array());
         $canonical = $data;
         $content = '';
         $author = '';

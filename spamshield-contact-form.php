@@ -211,12 +211,7 @@ class SpamShield_Contact_Form {
     public function render_contact_form($atts = array()) {
         // Get plugin options and form fields
         $options = $this->get_options();
-        $form_fields = get_option('sscf_form_fields', array());
-        
-        // Sort fields by order
-        usort($form_fields, function($a, $b) {
-            return $a['order'] - $b['order'];
-        });
+        $form_fields = $this->get_form_fields();
         
         // Generate unique form ID for multiple forms on same page
         static $form_counter = 0;
@@ -467,10 +462,34 @@ class SpamShield_Contact_Form {
     }
     
     /**
-     * Get plugin options
+     * Get plugin options with caching
      */
     public function get_options() {
-        return get_option('sscf_options', array());
+        static $cached_options = null;
+        
+        if ($cached_options === null) {
+            $cached_options = get_option('sscf_options', array());
+        }
+        
+        return $cached_options;
+    }
+    
+    /**
+     * Get form fields with caching
+     */
+    public function get_form_fields() {
+        static $cached_fields = null;
+        
+        if ($cached_fields === null) {
+            $cached_fields = get_option('sscf_form_fields', array());
+            
+            // Sort fields by order for consistency
+            usort($cached_fields, function($a, $b) {
+                return ($a['order'] ?? 0) - ($b['order'] ?? 0);
+            });
+        }
+        
+        return $cached_fields;
     }
 }
 
