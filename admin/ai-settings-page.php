@@ -400,7 +400,15 @@ jQuery(document).ready(function($) {
             },
             success: function(response) {
                 if (response.success) {
-                    $result.html('<div class="notice notice-success"><p><strong>Success!</strong> ' + response.data.message + '</p></div>');
+                    var extra = '';
+                    if (response.data) {
+                        var conf = (typeof response.data.confidence !== 'undefined') ? response.data.confidence : 'n/a';
+                        var act = (typeof response.data.recommended_action !== 'undefined') ? response.data.recommended_action : 'n/a';
+                        if (conf !== 'n/a' || act !== 'n/a') {
+                            extra = ' (confidence: ' + conf + '%, action: ' + act + ')';
+                        }
+                    }
+                    $result.html('<div class="notice notice-success"><p><strong>Success!</strong> ' + response.data.message + extra + '</p></div>');
                 } else {
                     $result.html('<div class="notice notice-error"><p><strong>Error:</strong> ' + response.data + '</p></div>');
                 }
