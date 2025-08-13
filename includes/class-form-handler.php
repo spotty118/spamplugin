@@ -43,6 +43,7 @@ class SSCF_Form_Handler {
         if ($spam_check['is_spam']) {
             // For spam submissions, we return success to not tip off bots
             // but don't actually send the email
+            $this->log_spam_attempt_analytics($canonical_data, $spam_check);
             return array(
                 'success' => true,
                 'message' => $this->get_success_message()
@@ -62,6 +63,7 @@ class SSCF_Form_Handler {
             }
         }
         
+        $this->log_successful_submission_analytics($canonical_data);
         return array(
             'success' => true,
             'message' => $this->get_success_message()
@@ -415,6 +417,44 @@ class SSCF_Form_Handler {
                 }
             }
         }
+    private function log_successful_submission_analytics(array $canonical) {
+        global $wpdb;
+        $table = $wpdb->prefix . 'sscf_comment_analytics';
+        $content_preview = isset($canonical['content']) ? substr(wp_strip_all_tags($canonical['content']), 0, 100) : 'Contact form submission';
+        $wpdb->insert($table, array(
+            'site_id' => get_current_blog_id(),
+            'entry_type' => 'contact_form',
+            'spam_score' => 0,
+            'detection_method' => 'clean',
+            'user_ip' => $this->get_user_ip(),
+            'user_agent' => !empty($_SERVER['HTTP_USER_AGENT']) ? sanitize_text_field($_SERVER['HTTP_USER_AGENT']) : '',
+            'post_id' => 0,
+            'content_preview' => $content_preview,
+            'timestamp' => current_time('mysql'),
+            'is_spam' => 0
+        ));
+    }
+    
+    private function log_spam_attempt_analytics(array $canonical, array $spam_check) {
+        global $wpdb;
+        $table = $wpdb->prefix . 'sscf_comment_analytics';
+        $content_preview = isset($canonical['content']) ? substr(wp_strip_all_tags($canonical['content']), 0, 100) : 'Spam attempt on contact form';
+        $spam_score = isset($spam_check['spam_score']) ? intval($spam_check['spam_score']) : 100;
+        $reason = !empty($spam_check['reason']) ? $spam_check['reason'] : 'spam_protection';
+        $wpdb->insert($table, array(
+            'site_id' => get_current_blog_id(),
+            'entry_type' => 'contact_form',
+            'spam_score' => $spam_score,
+            'detection_method' => $reason,
+            'user_ip' => $this->get_user_ip(),
+            'user_agent' => !empty($_SERVER['HTTP_USER_AGENT']) ? sanitize_text_field($_SERVER['HTTP_USER_AGENT']) : '',
+            'post_id' => 0,
+            'content_preview' => $content_preview,
+            'timestamp' => current_time('mysql'),
+            'is_spam' => 1
+        ));
+    }
+
         
         return !empty($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '0.0.0.0';
     }
