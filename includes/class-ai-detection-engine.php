@@ -273,6 +273,11 @@ class SSCF_AI_Detection_Engine {
         
         // Clean up the AI response text
         $ai_text = trim($ai_text);
+        if (preg_match('/^```(?:json)?\s*(.*?)\s*```$/si', $ai_text, $m)) {
+            $ai_text = trim($m[1]);
+        }
+        $ai_text = preg_replace('/^```|```$/', '', $ai_text);
+
         
         // Try multiple JSON extraction methods
         $json_string = null;
@@ -544,29 +549,19 @@ class SSCF_AI_Detection_Engine {
             wp_send_json_error(__('API key is required', 'spamshield-cf'));
         }
         
-        // Temporarily set API key for test
         $original_key = $this->api_key;
         $this->api_key = $api_key;
         
         try {
-            $test_content = array(
-                'type' => 'test',
-                'content' => 'This is a test message to verify AI integration.',
-                'author' => 'Test User',
-                'email' => 'test@example.com',
-                'ip' => '127.0.0.1',
-                'user_agent' => 'Test Agent'
-            );
+            $prompt = 'Return strict JSON only with keys: {"is_spam":boolean,"confidence":number,"spam_indicators":array,"threat_type":string,"reasoning":string,"recommended_action":string}. Example: {"is_spam":false,"confidence":0,"spam_indicators":[],"threat_type":"legitimate","reasoning":"connectivity test","recommended_action":"allow"}';
+            $ai = $this->call_gemini_api($prompt);
             
-            // Use real analysis path to validate end-to-end
-            $analysis = $this->analyze_content($test_content);
-            
-            if (is_array($analysis) && isset($analysis['ai_analysis']) && is_array($analysis['ai_analysis'])) {
-                $confidence = intval($analysis['ai_analysis']['confidence'] ?? 0);
+            if (is_array($ai) && isset($ai['analysis']) && is_array($ai['analysis'])) {
+                $confidence = intval($ai['analysis']['confidence'] ?? 0);
                 wp_send_json_success(array(
                     'message' => __('AI connection successful!', 'spamshield-cf'),
                     'confidence' => $confidence,
-                    'recommended_action' => $analysis['ai_analysis']['recommended_action'] ?? 'allow'
+                    'recommended_action' => $ai['analysis']['recommended_action'] ?? 'allow'
                 ));
             }
             
@@ -575,7 +570,6 @@ class SSCF_AI_Detection_Engine {
         } catch (Exception $e) {
             wp_send_json_error(sprintf(__('Connection failed: %s', 'spamshield-cf'), $e->getMessage()));
         } finally {
-            // Restore original API key
             $this->api_key = $original_key;
         }
     }
@@ -696,6 +690,29 @@ class SSCF_AI_Detection_Engine {
              LIMIT 10",
             ARRAY_A
         );
+        
+        if (!empty($wpdb->last_error)) {
+            $rows = $wpdb->get_results(
+                "SELECT pattern_data, confidence_score FROM {$this->threat_patterns_table}",
+                ARRAY_A
+            );
+            $agg = array();
+            foreach ($rows as $row) {
+                $pd = json_decode(isset($row['pattern_data']) ? $row['pattern_data'] : '', true);
+                if (!is_array($pd) || empty($pd['ip'])) {
+                    continue;
+                }
+                $ip = $pd['ip'];
+                if (!isset($agg[$ip])) {
+                    $agg[$ip] = array('ip' => $ip, 'threat_count' => 0, 'max_confidence' => 0.0);
+                }
+                $agg[$ip]['threat_count'] += 1;
+                $agg[$ip]['max_confidence'] = max($agg[$ip]['max_confidence'], floatval($row['confidence_score']));
+            }
+            $agg = array_values(array_filter($agg, function($x){ return $x['threat_count'] > 2; }));
+            usort($agg, function($a, $b){ return $b['threat_count'] <=> $a['threat_count']; });
+            $summary['ip_blacklist'] = array_slice($agg, 0, 10);
+        }
         
         // Calculate detection accuracy (based on verified patterns)
         $verified_patterns = $wpdb->get_var(
