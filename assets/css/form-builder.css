@@ -1,0 +1,530 @@
+/* SpamShield Form Builder Styles */
+
+.sscf-form-builder {
+    background: #f1f1f1;
+    margin-left: -20px;
+    margin-right: -20px;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+.sscf-builder-container {
+    display: grid;
+    grid-template-columns: 250px 1fr 300px;
+    gap: 20px;
+    height: calc(100vh - 120px);
+}
+
+/* Header */
+.sscf-builder-header {
+    grid-column: 1 / -1;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.sscf-form-info {
+    flex: 1;
+}
+
+.sscf-form-name {
+    font-size: 18px;
+    font-weight: 600;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 300px;
+    margin-bottom: 10px;
+}
+
+.sscf-form-description {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 500px;
+    resize: vertical;
+    min-height: 60px;
+}
+
+.sscf-builder-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+#save-form {
+    padding: 10px 20px;
+    font-size: 14px;
+}
+
+/* Field Palette */
+.sscf-field-palette {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    overflow-y: auto;
+}
+
+.sscf-field-palette h3 {
+    margin: 0 0 20px 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    color: #23282d;
+}
+
+.sscf-field-category {
+    margin-bottom: 25px;
+}
+
+.sscf-field-category h4 {
+    margin: 0 0 10px 0;
+    color: #666;
+    font-size: 13px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.sscf-field-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sscf-add-field {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+    width: 100%;
+    box-shadow: none;
+}
+
+.sscf-add-field:hover {
+    border-color: #0073aa;
+    background: #f8f9fa;
+    box-shadow: 0 2px 4px rgba(0,115,170,0.1);
+}
+
+.sscf-add-field .dashicons {
+    color: #0073aa;
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+}
+
+.sscf-add-field .field-name {
+    font-weight: 500;
+    color: #23282d;
+}
+
+/* Form Canvas */
+.sscf-form-canvas {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.sscf-canvas-header {
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sscf-canvas-header h3 {
+    margin: 0;
+    color: #23282d;
+}
+
+.sscf-canvas-area {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    min-height: 400px;
+    position: relative;
+}
+
+.sscf-canvas-placeholder {
+    text-align: center;
+    padding: 60px 20px;
+    color: #666;
+    border: 2px dashed #ddd;
+    border-radius: 8px;
+}
+
+.sscf-canvas-placeholder p {
+    font-size: 16px;
+    margin: 0;
+}
+
+/* Builder Fields */
+.sscf-builder-field {
+    position: relative;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #fafafa;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+.sscf-builder-field:hover {
+    border-color: #0073aa;
+    box-shadow: 0 2px 8px rgba(0,115,170,0.1);
+}
+
+.sscf-builder-field.ui-sortable-helper {
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    transform: rotate(2deg);
+}
+
+.sscf-builder-field.sscf-field-selected {
+    border-color: #0073aa;
+    background: #f0f8ff;
+}
+
+.sscf-field-controls {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    display: flex;
+    gap: 5px;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.sscf-builder-field:hover .sscf-field-controls {
+    opacity: 1;
+}
+
+.sscf-field-controls button {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.sscf-field-settings {
+    background: #0073aa;
+    color: white;
+}
+
+.sscf-field-settings:hover {
+    background: #005a87;
+}
+
+.sscf-field-duplicate {
+    background: #46b450;
+    color: white;
+}
+
+.sscf-field-duplicate:hover {
+    background: #2e7d32;
+}
+
+.sscf-field-delete {
+    background: #dc3232;
+    color: white;
+}
+
+.sscf-field-delete:hover {
+    background: #b71c1c;
+}
+
+.sscf-field-drag-handle {
+    background: #666;
+    color: white;
+    cursor: move;
+}
+
+.sscf-field-drag-handle:hover {
+    background: #333;
+}
+
+.sscf-field-content {
+    pointer-events: none;
+}
+
+.sscf-field-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #23282d;
+}
+
+.sscf-field-label .required {
+    color: #dc3232;
+}
+
+.sscf-field-input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    background: white;
+}
+
+.sscf-radio-option,
+.sscf-checkbox-option {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: normal;
+}
+
+.sscf-html-content {
+    padding: 10px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    min-height: 40px;
+}
+
+.sscf-divider {
+    border: none;
+    border-top: 2px solid #ddd;
+    margin: 10px 0;
+}
+
+.sscf-heading {
+    margin: 10px 0;
+    color: #23282d;
+}
+
+/* Settings Panel */
+.sscf-settings-panel {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    overflow-y: auto;
+}
+
+.sscf-settings-panel h3 {
+    margin: 0 0 20px 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    color: #23282d;
+}
+
+.setting-group {
+    margin-bottom: 20px;
+}
+
+.setting-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #23282d;
+}
+
+.setting-group input[type="text"],
+.setting-group input[type="email"],
+.setting-group textarea,
+.setting-group select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.setting-group input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+/* Field Settings Modal */
+.sscf-field-settings-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+}
+
+.sscf-field-settings-modal.active {
+    display: flex;
+}
+
+.sscf-modal-content {
+    background: white;
+    border-radius: 8px;
+    padding: 30px;
+    width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.sscf-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.sscf-modal-header h3 {
+    margin: 0;
+    color: #23282d;
+}
+
+.sscf-modal-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sscf-modal-close:hover {
+    color: #333;
+}
+
+.sscf-modal-actions {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* Drag and Drop States */
+.sscf-canvas-area.dragover {
+    background: #f0f8ff;
+    border: 2px dashed #0073aa;
+}
+
+.sscf-field-placeholder {
+    height: 4px;
+    background: #0073aa;
+    border-radius: 2px;
+    margin: 10px 0;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.sscf-field-placeholder.active {
+    opacity: 1;
+}
+
+/* All Forms List */
+.sscf-all-forms .status-active {
+    color: #46b450;
+    font-weight: 600;
+}
+
+.sscf-all-forms .status-inactive {
+    color: #dc3232;
+    font-weight: 600;
+}
+
+.copy-shortcode {
+    font-size: 12px;
+    padding: 2px 8px;
+}
+
+.copy-shortcode.copied {
+    background: #46b450;
+    color: white;
+}
+
+/* Loading States */
+.sscf-saving {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.sscf-save-success {
+    background: #46b450;
+    color: white;
+}
+
+.spinner.is-active {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .sscf-builder-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto 1fr auto;
+        height: auto;
+    }
+    
+    .sscf-field-palette,
+    .sscf-settings-panel {
+        order: 2;
+    }
+    
+    .sscf-form-canvas {
+        order: 1;
+        min-height: 500px;
+    }
+}
+
+@media (max-width: 768px) {
+    .sscf-form-builder {
+        margin-left: -10px;
+        margin-right: -10px;
+        padding: 10px;
+    }
+    
+    .sscf-builder-header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+    
+    .sscf-form-name,
+    .sscf-form-description {
+        width: 100%;
+    }
+    
+    .sscf-modal-content {
+        width: 90%;
+        padding: 20px;
+    }
+    
+    .sscf-field-controls {
+        position: static;
+        opacity: 1;
+        justify-content: center;
+        margin-top: 10px;
+    }
+}

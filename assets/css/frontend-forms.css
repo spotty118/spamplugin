@@ -1,0 +1,426 @@
+/**
+ * SpamShield Custom Forms - Frontend Styles
+ * Professional, responsive form styling
+ */
+
+.sscf-custom-form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.sscf-form-title {
+    margin: 0 0 10px 0;
+    color: #2c3e50;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.sscf-form-description {
+    margin: 0 0 30px 0;
+    color: #5a6c7d;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.sscf-form-description p {
+    margin: 0 0 15px 0;
+}
+
+.sscf-form-description p:last-child {
+    margin-bottom: 0;
+}
+
+/* Form Messages */
+.sscf-form-messages {
+    margin-bottom: 20px;
+}
+
+.sscf-success-message {
+    padding: 15px;
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    border-radius: 6px;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.sscf-error-message {
+    padding: 15px;
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    border-radius: 6px;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+/* Form Fields */
+.sscf-custom-form {
+    margin: 0;
+}
+
+.sscf-form-field {
+    margin-bottom: 25px;
+}
+
+.sscf-field-label {
+    display: block;
+    margin-bottom: 8px;
+    color: #2c3e50;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.sscf-required {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+.sscf-field-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e1e8ed;
+    border-radius: 6px;
+    font-size: 16px;
+    line-height: 1.4;
+    color: #2c3e50;
+    background: #fff;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.sscf-field-input:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.sscf-field-input:hover {
+    border-color: #bdc3c7;
+}
+
+.sscf-field-input::placeholder {
+    color: #95a5a6;
+}
+
+/* Textarea specific */
+textarea.sscf-field-input {
+    min-height: 120px;
+    resize: vertical;
+    font-family: inherit;
+}
+
+/* Select specific */
+select.sscf-field-input {
+    cursor: pointer;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23666' viewBox='0 0 24 24'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+    appearance: none;
+}
+
+/* Choice Fields (Radio & Checkbox) */
+.sscf-radio-group,
+.sscf-checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.sscf-radio-option,
+.sscf-checkbox-option {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 8px 0;
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.4;
+}
+
+.sscf-radio-option input[type="radio"],
+.sscf-checkbox-option input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin: 0 12px 0 0;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.sscf-radio-text,
+.sscf-checkbox-text {
+    color: #2c3e50;
+    cursor: pointer;
+}
+
+.sscf-radio-option:hover .sscf-radio-text,
+.sscf-checkbox-option:hover .sscf-checkbox-text {
+    color: #3498db;
+}
+
+/* File Upload */
+input[type="file"].sscf-field-input {
+    padding: 12px;
+    background: #f8f9fa;
+    border-style: dashed;
+    cursor: pointer;
+}
+
+input[type="file"].sscf-field-input:hover {
+    background: #e9ecef;
+    border-color: #3498db;
+}
+
+.sscf-file-help {
+    display: block;
+    margin-top: 8px;
+    color: #6c757d;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+/* Layout Fields */
+.sscf-html-field {
+    margin-bottom: 20px;
+    color: #2c3e50;
+    line-height: 1.6;
+}
+
+.sscf-html-field h1,
+.sscf-html-field h2,
+.sscf-html-field h3,
+.sscf-html-field h4,
+.sscf-html-field h5,
+.sscf-html-field h6 {
+    margin: 0 0 15px 0;
+    color: #2c3e50;
+}
+
+.sscf-html-field p {
+    margin: 0 0 15px 0;
+}
+
+.sscf-html-field p:last-child {
+    margin-bottom: 0;
+}
+
+.sscf-divider-field {
+    margin: 30px 0;
+    border: none;
+    border-top: 2px solid #e1e8ed;
+    height: 0;
+}
+
+.sscf-heading-field {
+    margin: 30px 0 20px 0;
+    color: #2c3e50;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.sscf-heading-field:first-child {
+    margin-top: 0;
+}
+
+/* Field Validation Errors */
+.sscf-form-field.sscf-has-error .sscf-field-input {
+    border-color: #e74c3c;
+    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+}
+
+.sscf-field-error {
+    margin-top: 8px;
+    color: #e74c3c;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+/* Form Actions */
+.sscf-form-actions {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #e1e8ed;
+}
+
+.sscf-submit-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 28px;
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 140px;
+    position: relative;
+}
+
+.sscf-submit-btn:hover {
+    background: #2980b9;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+}
+
+.sscf-submit-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(52, 152, 219, 0.3);
+}
+
+.sscf-submit-btn:disabled {
+    background: #95a5a6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.sscf-submit-spinner {
+    animation: sscf-spin 1s linear infinite;
+    font-size: 18px;
+}
+
+@keyframes sscf-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Loading State */
+.sscf-custom-form.sscf-submitting .sscf-field-input {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.sscf-custom-form.sscf-submitting .sscf-submit-btn {
+    background: #95a5a6;
+    cursor: not-allowed;
+}
+
+/* Success State */
+.sscf-custom-form.sscf-submitted {
+    position: relative;
+}
+
+.sscf-custom-form.sscf-submitted::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 6px;
+    z-index: 10;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sscf-custom-form-container {
+        margin: 0 10px;
+        padding: 15px;
+        border-radius: 6px;
+    }
+    
+    .sscf-form-title {
+        font-size: 20px;
+    }
+    
+    .sscf-form-description {
+        font-size: 15px;
+    }
+    
+    .sscf-field-input {
+        padding: 10px 14px;
+        font-size: 16px; /* Prevent zoom on iOS */
+    }
+    
+    .sscf-radio-group,
+    .sscf-checkbox-group {
+        gap: 8px;
+    }
+    
+    .sscf-submit-btn {
+        width: 100%;
+        padding: 12px 20px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sscf-custom-form-container {
+        margin: 0 5px;
+        padding: 12px;
+    }
+    
+    .sscf-form-title {
+        font-size: 18px;
+    }
+    
+    .sscf-form-description {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+    
+    .sscf-form-field {
+        margin-bottom: 20px;
+    }
+    
+    .sscf-field-label {
+        font-size: 14px;
+    }
+    
+    .sscf-form-actions {
+        margin-top: 20px;
+        padding-top: 15px;
+    }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    .sscf-field-input {
+        border-width: 3px;
+    }
+    
+    .sscf-submit-btn {
+        border: 2px solid #2980b9;
+    }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    .sscf-field-input,
+    .sscf-submit-btn,
+    .sscf-submit-spinner {
+        transition: none;
+        animation: none;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .sscf-custom-form-container {
+        box-shadow: none;
+        border: 1px solid #000;
+    }
+    
+    .sscf-submit-btn {
+        display: none;
+    }
+    
+    .sscf-field-input {
+        border: 1px solid #000 !important;
+        background: white !important;
+    }
+}
