@@ -410,7 +410,7 @@ class SSCF_Form_Handler {
             'HTTP_FORWARDED',
             'REMOTE_ADDR'
         );
-        
+
         foreach ($ip_headers as $header) {
             if (!empty($_SERVER[$header])) {
                 $ip = $_SERVER[$header];
@@ -422,6 +422,9 @@ class SSCF_Form_Handler {
                 }
             }
         }
+        return !empty($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '0.0.0.0';
+    }
+
     private function log_successful_submission_analytics(array $canonical) {
         global $wpdb;
         $table = $wpdb->prefix . 'sscf_comment_analytics';
